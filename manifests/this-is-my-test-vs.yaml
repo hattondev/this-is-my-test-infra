@@ -1,0 +1,22 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: this-is-my-test-vs
+  labels:
+    app: this-is-my-test
+    version: 0.0.1
+    backstage.io/kubernetes-id: this-is-my-test
+spec:
+  gateways:
+  - istio-gateway/apps-gateway
+  hosts:
+  - this-is-my-test.apps.wwtlab.net
+  http:
+  - name: primary
+    route:
+    - destination:
+        host: this-is-my-test-svc
+        port:
+          number: 80
+      weight: 100
